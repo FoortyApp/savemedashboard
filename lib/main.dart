@@ -47,189 +47,190 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color.fromRGBO(246, 244, 210, 1),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(25),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Image(
-                  image: AssetImage('assets/logo.png'),
-                  width: 150,
-                ),
+    double widthScreen = MediaQuery.of(context).size.width;
+    return widthScreen > 1000
+        ? Scaffold(
+            backgroundColor: const Color.fromRGBO(246, 244, 210, 1),
+            body: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.only(
-                    right: 8.0,
-                  ),
+                  padding: const EdgeInsets.all(25),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
-                        'Not a SaveMe user ?',
-                        style: TextStyle(
-                          fontFamily: 'Chillax',
-                          fontSize: 18,
-                          fontWeight: FontWeight.normal,
-                          letterSpacing: -1,
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 15,
-                      ),
-                      Container(
+                      const Image(
+                        image: AssetImage('assets/logo.png'),
                         width: 150,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: const Color.fromRGBO(79, 119, 45, 1),
-                            width: 2,
-                          ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          right: 8.0,
                         ),
-                        child: const Center(
-                          child: Text(
-                            'Try it free',
-                            style: TextStyle(
-                              fontFamily: 'Chillax',
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: -1,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(
+                              'Not a SaveMe user ? $widthScreen',
+                              style: const TextStyle(
+                                fontFamily: 'Chillax',
+                                fontSize: 18,
+                                fontWeight: FontWeight.normal,
+                                letterSpacing: -1,
+                              ),
                             ),
-                          ),
+                            const SizedBox(
+                              width: 15,
+                            ),
+                            Container(
+                              width: 150,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: const Color.fromRGBO(79, 119, 45, 1),
+                                  width: 2,
+                                ),
+                              ),
+                              child: const Center(
+                                child: Text(
+                                  'Try it free',
+                                  style: TextStyle(
+                                    fontFamily: 'Chillax',
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    letterSpacing: -1,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
                   ),
                 ),
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Container(
-            width: 300.0,
-            height: 450,
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: const Color.fromRGBO(79, 119, 45, 1),
-                width: 2,
-              ),
-              borderRadius: BorderRadius.circular(8),
-              color: const Color.fromRGBO(79, 119, 45, 1),
-            ),
-            child: Column(
-              children: [
-                const Padding(
-                  padding: EdgeInsets.all(15.0),
-                  child: Text(
-                    'Log In',
-                    style: TextStyle(
-                      fontFamily: 'ChillaxSB',
-                      fontSize: 35,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: -1,
-                      color: Color.fromRGBO(236, 243, 158, 1),
-                    ),
-                  ),
-                ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Container(
-                    width: 250,
-                    height: 35,
-                    color: Color.fromRGBO(236, 243, 158, 1),
-                    padding: const EdgeInsets.all(8.0),
-                    child: const Padding(
-                      padding: EdgeInsets.only(
-                        right: 8.0,
-                        left: 8,
-                      ),
-                      child: TextField(
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          disabledBorder: InputBorder.none,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
                 const SizedBox(
-                  height: 8,
+                  height: 20,
                 ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Container(
-                    width: 250,
-                    height: 35,
-                    color: Color.fromRGBO(236, 243, 158, 1),
-                    padding: const EdgeInsets.all(8.0),
-                    child: const Padding(
-                      padding: EdgeInsets.only(
-                        right: 8.0,
-                        left: 8,
-                      ),
-                      child: TextField(
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          disabledBorder: InputBorder.none,
-                        ),
-                      ),
+                Container(
+                  width: 300.0,
+                  height: 450,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: const Color.fromRGBO(79, 119, 45, 1),
+                      width: 2,
                     ),
+                    borderRadius: BorderRadius.circular(8),
+                    color: const Color.fromRGBO(79, 119, 45, 1),
                   ),
-                ),
-                const SizedBox(
-                  height: 25,
-                ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.of(context).pushNamed('/dashboard');
-                    },
-                    child: Container(
-                      color: Colors.black,
-                      width: 250,
-                      height: 35,
-                      child: const Center(
+                  child: Column(
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.all(15.0),
                         child: Text(
-                          'Login',
+                          'Log In',
                           style: TextStyle(
-                            color: Colors.white,
                             fontFamily: 'ChillaxSB',
+                            fontSize: 35,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: -1,
+                            color: Color.fromRGBO(236, 243, 158, 1),
                           ),
                         ),
                       ),
-                    ),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Container(
+                          width: 250,
+                          height: 35,
+                          color: const Color.fromRGBO(236, 243, 158, 1),
+                          padding: const EdgeInsets.all(8.0),
+                          child: const Padding(
+                            padding: EdgeInsets.only(
+                              right: 8.0,
+                              left: 8,
+                            ),
+                            child: TextField(
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                disabledBorder: InputBorder.none,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Container(
+                          width: 250,
+                          height: 35,
+                          color: const Color.fromRGBO(
+                            236,
+                            243,
+                            158,
+                            1,
+                          ),
+                          padding: const EdgeInsets.all(
+                            8.0,
+                          ),
+                          child: const Padding(
+                            padding: EdgeInsets.only(
+                              right: 8.0,
+                              left: 8,
+                            ),
+                            child: TextField(
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                disabledBorder: InputBorder.none,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.of(context).pushNamed('/dashboard');
+                          },
+                          child: Container(
+                            color: Colors.black,
+                            width: 250,
+                            height: 35,
+                            child: const Center(
+                              child: Text(
+                                'Login',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'ChillaxSB',
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
                   ),
-                )
+                ),
               ],
             ),
-          ),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        child: const Icon(Icons.add),
-      ),
-    );
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {},
+              child: const Icon(Icons.add),
+            ),
+          )
+        : const Scaffold(
+            body: Center(
+              child: Text('petit'),
+            ),
+          );
   }
 }
