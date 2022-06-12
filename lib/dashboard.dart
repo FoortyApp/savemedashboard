@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class MyDashBoard extends StatefulWidget {
   const MyDashBoard({Key? key}) : super(key: key);
@@ -59,7 +58,7 @@ class _MyDashBoardState extends State<MyDashBoard> {
                   flex: 1,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
+                    children: const [
                       Text(
                         'My Account',
                         style: TextStyle(
@@ -159,9 +158,9 @@ class _MyDashBoardState extends State<MyDashBoard> {
 }
 
 class _MyListTile extends StatefulWidget {
-  int index;
+  final int index;
 
-  _MyListTile({
+  const _MyListTile({
     Key? key,
     required this.index,
   }) : super(key: key);
