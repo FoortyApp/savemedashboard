@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
+import 'package:savemedashboard/main.dart';
 
 class MyDashBoard extends StatefulWidget {
   const MyDashBoard({Key? key}) : super(key: key);
@@ -10,25 +12,50 @@ class MyDashBoard extends StatefulWidget {
 }
 
 class _MyDashBoardState extends State<MyDashBoard> {
-  get http => null;
-
-
-  void _HttpRequest() async {
-    final postParameters = {
-      "uuid": "12345667889"
-    };
-
-    var jsonParameters = jsonEncode(postParameters);
-    //print(jsonParameters);
-    final url = Uri.http('foorty.eu','/testo');
+  late Future<Script1LogoutJson> _getResultFromHttprequest1;
+  late Future<Script2ApiscreenJson> _getResultFromHttprequest999;
+  late int PushMenuButton;
+  Future<Script1LogoutJson> _httpRequest() async {
+    print('bonjour3');
+    final url = Uri.http('foorty.eu', '/api/api_receipt/script_1_logout.php');
     print(url);
-    var responseRequest = await http.post(url, body: jsonParameters);
-    //final quotationResponse = quotationResponseFromJson(responseRequest.body);
-    if (responseRequest.statusCode == 200){
+    var responseRequest = await http.get(
+      url,
+    );
+    final script1LogoutJson = script1LogoutJsonFromJson(responseRequest.body);
 
-    }
+    if (responseRequest.statusCode == 200) {
+      if (script1LogoutJson.success) {
+        return script1LogoutJson;
+      }
+    } else {}
+    throw Exception('Failed to load datas');
   }
-  String _titleSection = 'Bienvenue';
+
+  Future<Script2ApiscreenJson> _httpRequest999() async {
+    final url = Uri.http('foorty.eu', '/api/api_receipt/script_2_apiscreen.php');
+    var responseRequest = await http.get(
+      url,
+    );
+    final script2ApiscreenJson = script2ApiscreenJsonFromJson(responseRequest.body);
+
+    if (responseRequest.statusCode == 200) {
+      if (script2ApiscreenJson.success) {
+        return script2ApiscreenJson;
+      }
+    } else {}
+    throw Exception('Failed to load datas');
+  }
+
+  final String _titleSection = 'Bienvenue';
+  @override
+  void initState() {
+    PushMenuButton = 1;
+    _getResultFromHttprequest1 = _httpRequest();
+    _getResultFromHttprequest999 = _httpRequest999();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,27 +70,30 @@ class _MyDashBoardState extends State<MyDashBoard> {
                   image: AssetImage('assets/logo.png'),
                   width: 150,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    right: 8.0,
-                  ),
-                  child: Container(
-                    width: 150,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: const Color.fromRGBO(79, 119, 45, 1),
-                        width: 2,
-                      ),
+                InkWell(
+                  onTap: _httpRequest,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      right: 8.0,
                     ),
-                    child: const Center(
-                      child: Text(
-                        'Log Out',
-                        style: TextStyle(
-                          fontFamily: 'Chillax',
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: -1,
+                    child: Container(
+                      width: 150,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: const Color.fromRGBO(79, 119, 45, 1),
+                          width: 2,
+                        ),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          'Log Out',
+                          style: TextStyle(
+                            fontFamily: 'Chillax',
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: -1,
+                          ),
                         ),
                       ),
                     ),
@@ -86,7 +116,7 @@ class _MyDashBoardState extends State<MyDashBoard> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(
-                            bottom: 8.0,
+                            bottom: 16.0,
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -112,7 +142,7 @@ class _MyDashBoardState extends State<MyDashBoard> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(
-                            bottom: 8.0,
+                            bottom: 16.0,
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -138,7 +168,7 @@ class _MyDashBoardState extends State<MyDashBoard> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(
-                            bottom: 8.0,
+                            bottom: 16.0,
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -164,7 +194,7 @@ class _MyDashBoardState extends State<MyDashBoard> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(
-                            bottom: 8.0,
+                            bottom: 16.0,
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -190,7 +220,7 @@ class _MyDashBoardState extends State<MyDashBoard> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(
-                            bottom: 8.0,
+                            bottom: 16.0,
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -216,36 +246,47 @@ class _MyDashBoardState extends State<MyDashBoard> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(
-                            bottom: 8.0,
+                            bottom: 16.0,
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: const [
-                              Icon(
-                                Icons.api_rounded,
-                                size: 15,
-                              ),
-                              SizedBox(
-                                width: 12,
-                              ),
-                              Text(
-                                'API Access',
-                                style: TextStyle(
-                                  fontFamily: 'Chillax',
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                  letterSpacing: -1,
+                          child: InkWell(
+                            onTap: () {
+                              setState(() {
+                                PushMenuButton = 999;
+                              });
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: const [
+                                Icon(
+                                  Icons.api_rounded,
+                                  size: 15,
                                 ),
-                              ),
-                            ],
+                                SizedBox(
+                                  width: 12,
+                                ),
+                                Text(
+                                  'API Access',
+                                  style: TextStyle(
+                                    fontFamily: 'Chillax',
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                    letterSpacing: -1,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(
-                            bottom: 8.0,
+                            bottom: 16.0,
                           ),
                           child: InkWell(
-                            onTap: _HttpRequest,
+                            onTap: () {
+                              setState(() {
+                                PushMenuButton = 1;
+                              });
+                            },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: const [
@@ -276,12 +317,13 @@ class _MyDashBoardState extends State<MyDashBoard> {
                 Expanded(
                   flex: 4,
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            _titleSection,
+                            PushMenuButton.toString(),
                             style: const TextStyle(
                               fontFamily: 'ChillaxSB',
                               fontSize: 0.9 * 25,
@@ -290,15 +332,145 @@ class _MyDashBoardState extends State<MyDashBoard> {
                           ),
                         ],
                       ),
-                      Expanded(
-                        child: ListView.builder(
-                          shrinkWrap: false,
-                          itemCount: 29,
-                          itemBuilder: (context, index) {
-                            return _MyListTile(index: index);
-                          },
-                        ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: ClipRRect(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12),
+                                    color: Colors.white,
+                                  ),
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: ListTile(
+                                    contentPadding: const EdgeInsets.all(0),
+                                    title: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: const [
+                                        Text(
+                                          'Client',
+                                          style: TextStyle(
+                                            letterSpacing: -0.8,
+                                            fontSize: 0.9 * 17,
+                                            fontFamily: 'ChillaxSB',
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        Text(
+                                          "Nombre de\nvisites",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontSize: 0.9 * 17,
+                                            fontFamily: 'Satoshi',
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        Text(
+                                          "Panier moyen en \$",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontSize: 0.9 * 17,
+                                            fontFamily: 'Satoshi',
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        Text(
+                                          "Date de la\ndernière visite",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontSize: 0.9 * 17,
+                                            fontFamily: 'Satoshi',
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
+                      PushMenuButton == 1
+                          ? Expanded(
+                              child: PushMenuButton == 1
+                                  ? FutureBuilder<Script1LogoutJson>(
+                                      future: _getResultFromHttprequest1, // a previously-obtained Future<String> or null
+                                      builder: (BuildContext context, snapshot) {
+                                        if (snapshot.hasData) {
+                                          return Text('${snapshot.data?.success}');
+                                        }
+                                        throw Exception('Failed to load datas');
+                                      },
+                                    )
+                                  : Container())
+                          : PushMenuButton == 999
+                              ? FutureBuilder<Script2ApiscreenJson>(
+                                  future: _getResultFromHttprequest999, // a previously-obtained Future<String> or null
+                                  builder: (BuildContext context, snapshot) {
+                                    if (snapshot.hasData) {
+                                      return Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Expanded(
+                                            child: ClipRRect(
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(8.0),
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(12),
+                                                    color: Colors.white,
+                                                  ),
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: ListTile(
+                                                    contentPadding: const EdgeInsets.all(0),
+                                                    title: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.start,
+                                                      children: [
+                                                        const Text(
+                                                          "Clé API",
+                                                          textAlign: TextAlign.center,
+                                                          style: TextStyle(
+                                                            fontSize: 0.9 * 17,
+                                                            fontFamily: 'Satoshi',
+                                                            color: Colors.black,
+                                                            fontWeight: FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                        const SizedBox(
+                                                          width: 25,
+                                                        ),
+                                                        SelectableText(
+                                                          '${snapshot.data?.apiKey}',
+                                                          textAlign: TextAlign.center,
+                                                          style: const TextStyle(
+                                                            fontSize: 0.9 * 17,
+                                                            fontFamily: 'Satoshi',
+                                                            color: Colors.black,
+                                                            fontWeight: FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    }
+                                    throw Exception('Failed to load datas');
+                                  },
+                                )
+                              : Text('Coucou'),
                     ],
                   ),
                 ),
@@ -309,10 +481,6 @@ class _MyDashBoardState extends State<MyDashBoard> {
       ),
     );
   }
-}
-
-class Domain {
-  String host = 'http://foorty.eu';
 }
 
 class _MyListTile extends StatefulWidget {
@@ -341,61 +509,47 @@ class _MyListTileState extends State<_MyListTile> {
           padding: const EdgeInsets.all(8.0),
           child: ListTile(
             contentPadding: const EdgeInsets.all(0),
-            title: const Text(
-              'assets/img/apple.svg',
-              style: TextStyle(
-                letterSpacing: -0.8,
-                fontSize: 0.9 * 17,
-                fontFamily: 'ChillaxSB',
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            subtitle: Column(
-              children: [
-                Row(
-                  children: const [
-                    Text(
-                      "Transaction date : ",
-                      style: TextStyle(
-                        fontSize: 0.9 * 17,
-                        fontFamily: 'Satoshi',
-                        color: Colors.grey,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
-                    Text(
-                      "2022-06-12",
-                      style: TextStyle(
-                        fontSize: 0.9 * 17,
-                        fontFamily: 'Satoshi',
-                        color: Colors.grey,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
-                  ],
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const [
+                Text(
+                  'Julie Delpietro',
+                  style: TextStyle(
+                    letterSpacing: -0.8,
+                    fontSize: 0.9 * 17,
+                    fontFamily: 'ChillaxSB',
+                    color: Colors.black,
+                    fontWeight: FontWeight.normal,
+                  ),
                 ),
-                Row(
-                  children: const [
-                    Text(
-                      "Price : ",
-                      style: TextStyle(
-                        fontSize: 0.9 * 17,
-                        fontFamily: 'Satoshi',
-                        color: Colors.grey,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
-                    Text(
-                      "12,23 \$",
-                      style: TextStyle(
-                        fontSize: 0.9 * 17,
-                        fontFamily: 'Satoshi',
-                        color: Colors.grey,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
-                  ],
+                Text(
+                  "12",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 0.9 * 17,
+                    fontFamily: 'Satoshi',
+                    color: Colors.grey,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+                Text(
+                  "24,78",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 0.9 * 17,
+                    fontFamily: 'Satoshi',
+                    color: Colors.grey,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+                Text(
+                  "12/06/2022",
+                  style: TextStyle(
+                    fontSize: 0.9 * 17,
+                    fontFamily: 'Satoshi',
+                    color: Colors.grey,
+                    fontWeight: FontWeight.normal,
+                  ),
                 ),
               ],
             ),
@@ -404,4 +558,48 @@ class _MyListTileState extends State<_MyListTile> {
       ),
     );
   }
+}
+
+//Création d'une classe pour le traitement du JSON
+Script1LogoutJson script1LogoutJsonFromJson(String str) => Script1LogoutJson.fromJson(json.decode(str));
+String script1LogoutJsonToJson(Script1LogoutJson data) => json.encode(data.toJson());
+
+class Script1LogoutJson {
+  Script1LogoutJson({
+    required this.success,
+  });
+
+  bool success;
+
+  factory Script1LogoutJson.fromJson(Map<String, dynamic> json) => Script1LogoutJson(
+        success: json["success"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "success": success,
+      };
+}
+
+//Création d'une classe pour le traitement du JSON
+Script2ApiscreenJson script2ApiscreenJsonFromJson(String str) => Script2ApiscreenJson.fromJson(json.decode(str));
+String script2ApiscreenJsonToJson(Script2ApiscreenJson data) => json.encode(data.toJson());
+
+class Script2ApiscreenJson {
+  Script2ApiscreenJson({
+    required this.success,
+    required this.apiKey,
+  });
+
+  bool success;
+  String apiKey;
+
+  factory Script2ApiscreenJson.fromJson(Map<String, dynamic> json) => Script2ApiscreenJson(
+        success: json["success"],
+        apiKey: json["API Key"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "success": success,
+        "API Key": apiKey,
+      };
 }

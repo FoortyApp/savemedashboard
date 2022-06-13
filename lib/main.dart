@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:savemedashboard/dashboard.dart';
+//import 'package:flutter_svg/flutter_svg.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,7 +28,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
-      routes: <String, WidgetBuilder>{'/dashboard': (BuildContext context) => const MyDashBoard()},
+      routes: <String, WidgetBuilder>{
+        '/dashboard': (BuildContext context) => const MyDashBoard(),
+        '/login': (BuildContext context) => const MyApp(),
+      },
     );
   }
 }
