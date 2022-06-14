@@ -14,9 +14,8 @@ class MyDashBoard extends StatefulWidget {
 class _MyDashBoardState extends State<MyDashBoard> {
   late Future<Script1LogoutJson> _getResultFromHttprequest1;
   late Future<Script2ApiscreenJson> _getResultFromHttprequest999;
-  late int PushMenuButton;
+  int PushMenuButton = 1;
   Future<Script1LogoutJson> _httpRequest() async {
-    print('bonjour3');
     final url = Uri.http('foorty.eu', '/api/api_receipt/script_1_logout.php');
     print(url);
     var responseRequest = await http.get(
@@ -50,7 +49,6 @@ class _MyDashBoardState extends State<MyDashBoard> {
   final String _titleSection = 'Bienvenue';
   @override
   void initState() {
-    PushMenuButton = 1;
     _getResultFromHttprequest1 = _httpRequest();
     _getResultFromHttprequest999 = _httpRequest999();
     super.initState();
@@ -59,6 +57,7 @@ class _MyDashBoardState extends State<MyDashBoard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromRGBO(243, 246, 248, 1),
       body: Column(
         children: [
           Padding(
@@ -318,6 +317,7 @@ class _MyDashBoardState extends State<MyDashBoard> {
                   flex: 4,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.max,
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -470,7 +470,7 @@ class _MyDashBoardState extends State<MyDashBoard> {
                                     throw Exception('Failed to load datas');
                                   },
                                 )
-                              : Text('Coucou'),
+                              : const Text('Coucou'),
                     ],
                   ),
                 ),
