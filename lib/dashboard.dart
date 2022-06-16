@@ -154,26 +154,34 @@ class _MyDashBoardState extends State<MyDashBoard> {
                           padding: const EdgeInsets.only(
                             bottom: 16.0,
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: const [
-                              Icon(
-                                Icons.ice_skating,
-                                size: 15,
-                              ),
-                              SizedBox(
-                                width: 12,
-                              ),
-                              Text(
-                                'My Account',
-                                style: TextStyle(
-                                  fontFamily: 'Chillax',
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                  letterSpacing: -1,
+                          child: InkWell(
+                            onTap: () {
+                              setState(() {
+                                PushMenuButton = 3;
+                                _titleSection = 'MY CLIENTS';
+                              });
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: const [
+                                Icon(
+                                  Icons.api_rounded,
+                                  size: 15,
                                 ),
-                              ),
-                            ],
+                                SizedBox(
+                                  width: 12,
+                                ),
+                                Text(
+                                  'My Clients',
+                                  style: TextStyle(
+                                    fontFamily: 'Chillax',
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                    letterSpacing: -1,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                         Padding(
