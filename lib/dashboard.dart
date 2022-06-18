@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:savemedashboard/main.dart';
 import 'package:savemedashboard/futures/future1.dart';
 import 'package:savemedashboard/futures/future2.dart';
+import 'package:savemedashboard/futures/future3.dart';
 
 class MyDashBoard extends StatefulWidget {
   const MyDashBoard({Key? key}) : super(key: key);
@@ -399,7 +400,11 @@ class _MyDashBoardState extends State<MyDashBoard> {
                                 )
                               : PushMenuButton == 2
                                   ? const Future2()
-                                  : const Text('Coucou'),
+                                  : PushMenuButton == 3
+                                      ? const Expanded(child: Future3(),)
+                                      : const Center(
+                                          child: Text('pas cool'),
+                                        ),
                     ],
                   ),
                 ),
