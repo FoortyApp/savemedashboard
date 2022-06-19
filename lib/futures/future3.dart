@@ -29,6 +29,8 @@ class Future3 extends StatefulWidget {
 
 class _Future3State extends State<Future3> {
   late Future<Script4> _getResultFromHttprequest;
+
+  bool isChecked = false;
   @override
   void initState() {
     _getResultFromHttprequest = _httpRequestFuture3();
@@ -48,9 +50,42 @@ class _Future3State extends State<Future3> {
               int index,
             ) {
               return ListTile(
-                title: Text(snapshot.data!.clients[index].clientFirstName),
+                title: Row(
+                  children: [
+                    Checkbox(
+                      checkColor: Colors.white,
+                      //fillColor: MaterialStateProperty.resolveWith(getColor),
+                      value: isChecked,
+                      onChanged: (bool? value) {
+                        setState(() {});
+                      },
+                    ),
+                    Text(
+                      '${snapshot.data!.clients[index].clientFirstName} ${snapshot.data!.clients[index].clientLastName}',
+                      style: const TextStyle(
+                        fontFamily: 'ChillaxSB',
+                        letterSpacing: -1.2,
+                      ),
+                    ),
+                  ],
+                ),
+                subtitle: Column(
+                  children: [
+                    Row(
+                      children: [
+                        const Text('Dépenses moyennes : '),
+                        Text('${snapshot.data!.clients[index].clientAverage} €'),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        const Text('Nombre de visite de ce client : '),
+                        Text('${snapshot.data!.clients[index].clientVisitReccuring.toString()} visites'),
+                      ],
+                    ),
+                  ],
+                ),
               );
-
             },
           );
         }
