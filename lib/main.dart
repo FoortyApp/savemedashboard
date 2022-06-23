@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:savemedashboard/dashboard.dart';
-//import 'package:flutter_svg/flutter_svg.dart';
+import 'package:test/test.dart';
 
 void main() {
   runApp(const MyApp());
+  test('Test unitaire : vérification fonction Counter()', () {
+    final counter = Counter();
+
+    counter.calcul();
+
+    expect(counter.value, 24);
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -234,5 +241,15 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Text('petit'),
             ),
           );
+  }
+}
+
+class Counter {
+  int value = 12;
+
+
+
+  void calcul() {
+    value = value*2;
   }
 }
